@@ -1,5 +1,5 @@
 package owtp
 
-// OWTP (or Object-based Wide Tranfer Protocol) ...
-type OWTPSchema struct {
+// OWTP (or Object-based Wide Tranfer Protocol) schema ...
+type Schema struct {
 }
