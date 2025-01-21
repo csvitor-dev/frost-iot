@@ -1,6 +1,6 @@
 package device
 
-type refrigerator struct {
+type Refrigerator struct {
 	temperature float64
 	stock       float32
 	portState   bool
@@ -8,12 +8,12 @@ type refrigerator struct {
 
 /* constructor */
 
-func NewRefrigeratorDevice(temperature float64, stock float32) (*refrigerator, error) {
+func NewRefrigeratorDevice(temperature float64, stock float32) (*Refrigerator, error) {
 	if err := validate(temperature, stock); err != nil {
-		return &refrigerator{}, err
+		return &Refrigerator{}, err
 	}
 
-	return &refrigerator{
+	return &Refrigerator{
 		temperature: temperature,
 		stock:       stock,
 		portState:   false,
@@ -35,21 +35,21 @@ func validate(temperature float64, stock float32) error {
 
 /* Getters */
 
-func (r *refrigerator) GetTemperature() float64 {
+func (r *Refrigerator) GetTemperature() float64 {
 	return r.temperature
 }
 
-func (r *refrigerator) GetStock() float32 {
+func (r *Refrigerator) GetStock() float32 {
 	return r.stock
 }
 
-func (r *refrigerator) GetPortState() bool {
+func (r *Refrigerator) GetPortState() bool {
 	return r.portState
 }
 
 /* Setters */
 
-func (r *refrigerator) SetTemperature(value float64) error {
+func (r *Refrigerator) SetTemperature(value float64) error {
 	if err := validateTemperature(value); err != nil {
 		return err
 	}
@@ -58,7 +58,7 @@ func (r *refrigerator) SetTemperature(value float64) error {
 	return nil
 }
 
-func (r *refrigerator) SetStock(value float32) error {
+func (r *Refrigerator) SetStock(value float32) error {
 	if err := validateStock(value); err != nil {
 		return err
 	}
@@ -67,6 +67,6 @@ func (r *refrigerator) SetStock(value float32) error {
 	return nil
 }
 
-func (r *refrigerator) SetPortState() {
+func (r *Refrigerator) SetPortState() {
 	r.portState = !r.portState
 }
