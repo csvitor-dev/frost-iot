@@ -1,4 +1,4 @@
-package handlers
+package actuators
 
 type CoolerActuator struct {
 }
