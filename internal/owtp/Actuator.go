@@ -1,5 +1,5 @@
 package owtp
 
 type Actuator interface {
-	HandleEvent(Schema)
+	HandleEvent(*Schema)
 }

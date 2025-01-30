@@ -9,19 +9,10 @@ import (
 )
 
 type ActuatorBase struct {
-	id types.UUID
-	state bool
+	id     types.UUID
+	state  bool
 	server *manager.ServerManager
-}
-
-/* constructor */
-
-func NewActuatorBase() *ActuatorBase {
-	return &ActuatorBase{
-		id: types.NewUUID(),
-		state: false,
-		server: nil,
-	}
+	children ActuatorApplication
 }
 
 /* getters */
@@ -42,6 +33,10 @@ func (a *ActuatorBase) SetState() {
 
 /* methods */
 
+func (a *ActuatorBase) HandleEvent(message *owtp.Schema) {
+	a.children.HandleMessage(message)
+}
+
 func (a *ActuatorBase) Connect(server *manager.ServerManager) error {
 	if (server == nil) {
 		return errors.New("Fail")
@@ -54,7 +49,3 @@ func (a *ActuatorBase) Connect(server *manager.ServerManager) error {
 func (a *ActuatorBase) Ping() bool {
 	return false
 }
-
-func (a *ActuatorBase) HandleMessage(message *owtp.Schema) {
-
-} 
