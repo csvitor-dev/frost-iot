@@ -15,3 +15,7 @@ func (t *TemperatureSensor) catchEvent() owtp.Schema {
 	fmt.Println("Event captured by Temperature Sensor")
 	return owtp.Schema{}
 }
+
+func (t *TemperatureSensor) SendMessages() {
+	fmt.Println(t.LastMessages)
+}
