@@ -1,34 +1,35 @@
 package sensors
 
 import (
+	"fmt"
+
 	"github.com/csvitor-dev/frost-iot/internal/owtp"
 	"github.com/csvitor-dev/frost-iot/pkg/types"
 	"github.com/csvitor-dev/frost-iot/src/manager"
 )
 
-import "fmt"
-
 type SensorBase struct {
-	Id           types.UUID
-	Kind         string
-	LastMessages []owtp.Schema
-	Server       manager.ServerManager
+	id           types.UUID
+	kind         string
+	lastMessages []*owtp.Schema
+	server       *manager.ServerManager
+	children     SensorApplication
 }
 
-func (t *SensorBase) catchEvent() owtp.Schema {
-	// Implementação específica para TemperatureSensor
-	fmt.Println("Event captured by Sensor")
-	return owtp.Schema{}
+func (s *SensorBase) CatchEvent() *owtp.Schema {
+	fmt.Println("[SensorBase] Event captured by Sensor")
+
+	return s.children.CatchEvent()
 }
 
-func (t *SensorBase) SendMessages() {
-	fmt.Println(t.LastMessages)
+func (s *SensorBase) SendMessages() {
+	fmt.Println("All messages:", s.lastMessages)
 }
 
-func (t *SensorBase) Connect(server manager.ServerManager) {
+func (s *SensorBase) Connect(server manager.ServerManager) {
 
 }
 
-func (t *SensorBase) Ping() bool {
+func (s *SensorBase) Ping() bool {
 	return true
 }
