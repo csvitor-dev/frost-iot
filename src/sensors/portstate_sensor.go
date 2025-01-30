@@ -15,3 +15,7 @@ func (t *PortStateSensor) catchEvent() owtp.Schema {
 	fmt.Println("Event captured by PortState Sensor")
 	return owtp.Schema{}
 }
+
+func (t *PortStateSensor) SendMessages() {
+	fmt.Println(t.LastMessages)
+}

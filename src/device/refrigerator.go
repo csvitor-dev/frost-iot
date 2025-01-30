@@ -1,9 +1,16 @@
 package device
 
+import (
+	"github.com/csvitor-dev/frost-iot/src/sensors"
+)
+
 type Refrigerator struct {
 	temperature float64
 	stock       float32
 	portState   bool
+	stockSensor sensors.StockLevelSensor
+	tempSensor  sensors.TemperatureSensor
+	portSensor  sensors.PortStateSensor
 }
 
 /* constructor */
