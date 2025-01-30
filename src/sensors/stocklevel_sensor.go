@@ -15,3 +15,7 @@ func (t *StockLevelSensor) catchEvent() owtp.Schema {
 	fmt.Println("Event captured by StockLevel Sensor")
 	return owtp.Schema{}
 }
+
+func (t *StockLevelSensor) SendMessages() {
+	fmt.Println(t.LastMessages)
+}
