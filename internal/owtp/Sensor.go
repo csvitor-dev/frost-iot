@@ -1,6 +1,6 @@
 package owtp
 
 type Sensor interface {
-	catchEvent() Schema
+	catchEvent() *Schema
 	SendMessages()
 }
