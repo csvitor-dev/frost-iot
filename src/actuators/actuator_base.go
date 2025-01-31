@@ -4,7 +4,8 @@ import (
 	"errors"
 
 	"github.com/csvitor-dev/frost-iot/internal/owtp"
-	"github.com/csvitor-dev/frost-iot/pkg/types"
+	"github.com/csvitor-dev/frost-iot/internal/types"
+	pkg "github.com/csvitor-dev/frost-iot/pkg/types"
 	"github.com/csvitor-dev/frost-iot/src/manager"
 )
 
@@ -12,7 +13,7 @@ type ActuatorBase struct {
 	id     types.UUID
 	state  bool
 	server *manager.ServerManager
-	children types.ActuatorApplication
+	children pkg.ActuatorApplication
 }
 
 /* getters */

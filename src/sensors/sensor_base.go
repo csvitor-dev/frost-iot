@@ -4,7 +4,8 @@ import (
 	"fmt"
 
 	"github.com/csvitor-dev/frost-iot/internal/owtp"
-	"github.com/csvitor-dev/frost-iot/pkg/types"
+	"github.com/csvitor-dev/frost-iot/internal/types"
+	pkg "github.com/csvitor-dev/frost-iot/pkg/types"
 	"github.com/csvitor-dev/frost-iot/src/manager"
 )
 
@@ -13,7 +14,7 @@ type SensorBase struct {
 	kind         string
 	lastMessages []*owtp.Schema
 	server       *manager.ServerManager
-	children     types.SensorApplication
+	children     pkg.SensorApplication
 }
 
 func (s *SensorBase) CatchEvent() *owtp.Schema {

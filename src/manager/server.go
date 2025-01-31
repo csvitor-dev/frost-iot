@@ -1,16 +1,17 @@
 package manager
 
 import (
+	"github.com/csvitor-dev/frost-iot/internal/types"
 	"github.com/csvitor-dev/frost-iot/internal/owtp"
-	"github.com/csvitor-dev/frost-iot/pkg/types"
+	pkg "github.com/csvitor-dev/frost-iot/pkg/types"
 )
 
 type ServerManager struct {
 	temperatureTarget float64
 	timeTarget        float32
 	recentRecords     map[types.UUID]owtp.Schema
-	sensors []owtp.Sensor
-	actuators []owtp.Actuator
+	sensors []pkg.Sensor
+	actuators []pkg.Actuator
 }
 
 /* constructor */
