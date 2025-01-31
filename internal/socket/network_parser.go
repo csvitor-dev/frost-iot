@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/gob"
 	"errors"
+	"time"
 
 	"github.com/csvitor-dev/frost-iot/internal/owtp"
 )
@@ -13,7 +14,19 @@ var (
 	errByteToSchema = errors.New(`cannot convert data from '[]byte' to 'Schema'`)
 )
 
-func ParseSchemaToByte(message owtp.Schema) ([]byte, error) {
+type SensorBody struct {
+	Temperature float64
+	Humidity float32
+}
+
+func init() {
+	gob.Register(time.Time{})
+	gob.Register(owtp.Header{})
+	gob.Register(SensorBody{})
+	gob.Register(owtp.Schema{})
+}
+
+func ParseSchemaToByte(message *owtp.Schema) ([]byte, error) {
 	var network bytes.Buffer
 	encoder := gob.NewEncoder(&network)
 
