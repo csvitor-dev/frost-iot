@@ -1,21 +1,24 @@
 package sensors
 
-import "github.com/csvitor-dev/frost-iot/internal/owtp"
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/csvitor-dev/frost-iot/internal/owtp"
+)
 
 type StockLevelSensor struct {
-	SensorBase         // Incorpora o comportamento de SensorBase
-	StockLevelReceived float64
-	owtp.Schema
+	stockLevelReceived float32
 }
 
-// catchEvent implementa o método para TemperatureSensor
-func (t *StockLevelSensor) catchEvent() owtp.Schema {
-	// Implementação específica para TemperatureSensor
-	fmt.Println("Event captured by StockLevel Sensor")
-	return owtp.Schema{}
+/* getters */
+
+func (s *StockLevelSensor) GetStockLevel() float32 {
+	return s.stockLevelReceived
 }
 
-func (t *StockLevelSensor) SendMessages() {
-	fmt.Println(t.LastMessages)
+/* methods */
+
+func (s *StockLevelSensor) CatchEvent() *owtp.Schema {
+	fmt.Println(" >> Event captured by StockLevel Sensor")
+	return &owtp.Schema{}
 }
