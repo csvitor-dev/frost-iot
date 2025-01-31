@@ -13,7 +13,7 @@ type SensorBase struct {
 	kind         string
 	lastMessages []*owtp.Schema
 	server       *manager.ServerManager
-	children     SensorApplication
+	children     types.SensorApplication
 }
 
 func (s *SensorBase) CatchEvent() *owtp.Schema {
