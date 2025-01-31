@@ -12,7 +12,7 @@ type ActuatorBase struct {
 	id     types.UUID
 	state  bool
 	server *manager.ServerManager
-	children ActuatorApplication
+	children types.ActuatorApplication
 }
 
 /* getters */
