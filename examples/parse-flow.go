@@ -9,6 +9,15 @@ import (
 	"github.com/csvitor-dev/frost-iot/internal/types"
 )
 
+func init() {
+	socket.InjectBodyMessage(SensorBody{})
+}
+
+type SensorBody struct {
+	Temperature float64
+	Humidity    float32
+}
+
 func main() {
 	schema := &owtp.Schema{
 		Header: owtp.Header{
@@ -16,7 +25,7 @@ func main() {
 			Id: types.NewUUID(),
 			Role: "sensor",
 		},
-		BodyMessage: socket.SensorBody{
+		BodyMessage: SensorBody{
 			Temperature: 4.0,
 			Humidity: 65,
 		},

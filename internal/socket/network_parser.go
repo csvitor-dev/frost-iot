@@ -14,15 +14,9 @@ var (
 	errByteToSchema = errors.New(`cannot convert data from '[]byte' to 'Schema'`)
 )
 
-type SensorBody struct {
-	Temperature float64
-	Humidity float32
-}
-
 func init() {
 	gob.Register(time.Time{})
 	gob.Register(owtp.Header{})
-	gob.Register(SensorBody{})
 	gob.Register(owtp.Schema{})
 }
 
