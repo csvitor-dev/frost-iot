@@ -2,8 +2,8 @@ package client
 
 import (
 	"fmt"
-
 	"github.com/csvitor-dev/frost-iot/internal/owtp"
+	"github.com/csvitor-dev/frost-iot/src/view"
 )
 
 type ClientManager struct {
@@ -11,6 +11,42 @@ type ClientManager struct {
 }
 
 /* getter */
+
+func NewClientManager() *ClientManager {
+	cm := &ClientManager{
+		lastReceive: nil, // Inicialmente, sem dados recebidos
+	}
+
+	// Chamada da função que inicializa a view
+	cm.InitializeView()
+	return cm
+}
+
+func (cm *ClientManager) InitializeView() {
+	for {
+		view.ShowMenu()
+		choice := view.GetUserChoice()
+
+		switch choice {
+		case 1:
+			view.ShowTemperatureRecord(cm.ReceiveLastTemperatureRecord())
+		case 2:
+			view.ShowStockLevelRecord(cm.ReceiveLastStockLevelRecord())
+		case 3:
+			view.ShowOpenPortRecord(cm.ReceiveLastOpenPortRecord())
+		case 4:
+			cm.ConfigureTemperatureLimit(view.GetTemperatureLimit())
+		case 5:
+			cm.ConfigureOpenPortTime(view.GetOpenPortTime())
+		case 6:
+			view.ShowExitMessage()
+			return
+		default:
+			view.ShowInvalidChoice()
+		}
+	}
+
+}
 
 func (cm *ClientManager) GetReceive() *owtp.Schema {
 	return cm.lastReceive
@@ -23,7 +59,7 @@ func (cm *ClientManager) ReceiveLastTemperatureRecord() float64 {
 }
 
 // Function to receive the last stock level record
-func (cm *ClientManager) ReceiveLastStockLevelRecord() float32 {
+func (cm *ClientManager) ReceiveLastStockLevelRecord() float64 {
 	// Placeholder: Replace with actual logic to fetch the last stock level record
 	return 0.0
 }
