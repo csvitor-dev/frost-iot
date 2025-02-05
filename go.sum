@@ -2,5 +2,7 @@ github.com/csvitor-dev/socket.go v0.0.0-20241224214020-0a4bf945f85f h1:E+2MTmgX4
 github.com/csvitor-dev/socket.go v0.0.0-20241224214020-0a4bf945f85f/go.mod h1:J78ZHl6GIWHh3YMQWhY8U+foV6NbjB2cay2jdMyzqKg=
 github.com/csvitor-dev/socket.go v0.0.0-20250203155101-e982a86469d3 h1:v4INQy1+qimxXYnlcyzVhMonz6hrCsx5HV1pYVtwao8=
 github.com/csvitor-dev/socket.go v0.0.0-20250203155101-e982a86469d3/go.mod h1:J78ZHl6GIWHh3YMQWhY8U+foV6NbjB2cay2jdMyzqKg=
+github.com/csvitor-dev/socket.go v0.0.0-20250204214152-31f8fb21ea8f h1:PjjTdQAdB/ZK779xN3Yx0yH1yINUvSCDs174N1scMdY=
+github.com/csvitor-dev/socket.go v0.0.0-20250204214152-31f8fb21ea8f/go.mod h1:J78ZHl6GIWHh3YMQWhY8U+foV6NbjB2cay2jdMyzqKg=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
