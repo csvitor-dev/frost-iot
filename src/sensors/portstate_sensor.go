@@ -18,7 +18,7 @@ func (s *PortStateSensor) GetPortState() bool {
 
 /* methods */
 
-func (t *PortStateSensor) CatchEvent() *owtp.Schema {
+func (t *PortStateSensor) CatchEvent() owtp.Schema {
 	fmt.Println(" >> Event captured by PortState Sensor")
-	return &owtp.Schema{}
+	return owtp.Schema{}
 }

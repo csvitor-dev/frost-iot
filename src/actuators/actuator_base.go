@@ -34,7 +34,7 @@ func (a *ActuatorBase) SetState() {
 
 /* methods */
 
-func (a *ActuatorBase) HandleEvent(message *owtp.Schema) {
+func (a *ActuatorBase) HandleEvent(message owtp.Schema) {
 	a.children.HandleMessage(message)
 }
 

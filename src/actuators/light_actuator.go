@@ -17,6 +17,6 @@ func NewLightActuator() *LightActuator {
 
 /* methods */
 
-func (a *LightActuator) HandleMessage(message *owtp.Schema) {
+func (a *LightActuator) HandleMessage(message owtp.Schema) {
 	fmt.Println("[LightActuator] retrieved message")
 }
