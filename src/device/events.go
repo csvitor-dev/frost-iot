@@ -1,22 +1,66 @@
 package device
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+
+	"github.com/csvitor-dev/frost-iot/internal/owtp"
+	"github.com/csvitor-dev/frost-iot/internal/types"
+)
 
 // throwTemperatureEvent simulates an event related to temperature changes.
 func (r *Refrigerator) ThrowTemperatureEvent() {
-	fmt.Printf("Temperature event triggered! Current temperature: %.2f°C\n", r.temperature)
+	message := owtp.Schema{
+		Header: owtp.Header{
+			Type: "sensor_data",
+			Id: types.NewUUID(),
+			Role: "sensor",
+		},
+		BodyMessage: owtp.TemperatureSensorBody{
+			Temperature: r.temperature,
+		},
+		Timestamp: time.Now(),
+	}
+
+	fmt.Println("[ThrowTemperatureEvent] Event trigged!")
+
+	r.tempSensor.LoadMessage(message)
 }
 
 // throwPortEvent simulates an event related to port state changes.
 func (r *Refrigerator) ThrowPortEvent() {
-	state := "closed"
-	if r.portState {
-		state = "open"
+	message := owtp.Schema{
+		Header: owtp.Header{
+			Type: "sensor_data",
+			Id: types.NewUUID(),
+			Role: "sensor",
+		},
+		BodyMessage: owtp.PortStateSensorBody{
+			PortState: r.portState,
+		},
+		Timestamp: time.Now(),
 	}
-	fmt.Printf("Port event triggered! Current port state: %s\n", state)
+
+	fmt.Println("[ThrowPortEvent] Event trigged!")
+
+	r.portSensor.LoadMessage(message)
 }
 
 // throwStockEvent simulates an event related to stock level changes.
 func (r *Refrigerator) ThrowStockEvent() {
-	fmt.Printf("Stock event triggered! Current stock level: %.2f units\n", r.stock)
+	message := owtp.Schema{
+		Header: owtp.Header{
+			Type: "sensor_data",
+			Id: types.NewUUID(),
+			Role: "sensor",
+		},
+		BodyMessage: owtp.StockLevelSensorBody{
+			StockLevel: r.stock,
+		},
+		Timestamp: time.Now(),
+	}
+
+	fmt.Println("[ThrowStockEvent] Event trigged!")
+
+	r.stockSensor.LoadMessage(message)
 }
