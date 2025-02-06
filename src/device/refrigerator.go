@@ -1,6 +1,7 @@
 package device
 
 import (
+	pkg "github.com/csvitor-dev/frost-iot/pkg/types"
 	"github.com/csvitor-dev/frost-iot/src/sensors"
 )
 
@@ -8,9 +9,9 @@ type Refrigerator struct {
 	temperature float64
 	stock       float32
 	portState   bool
-	stockSensor sensors.StockLevelSensor
-	tempSensor  sensors.TemperatureSensor
-	portSensor  sensors.PortStateSensor
+	stockSensor pkg.Sensor
+	tempSensor  pkg.Sensor
+	portSensor  pkg.Sensor
 }
 
 /* constructor */
@@ -24,6 +25,9 @@ func NewRefrigeratorDevice(temperature float64, stock float32) (*Refrigerator, e
 		temperature: temperature,
 		stock:       stock,
 		portState:   false,
+		tempSensor: createSensor(&sensors.TemperatureSensor{}),
+		stockSensor: createSensor(&sensors.StockLevelSensor{}),
+		portSensor: createSensor(&sensors.PortStateSensor{}),
 	}, nil
 }
 func validate(temperature float64, stock float32) error {
@@ -38,6 +42,9 @@ func validate(temperature float64, stock float32) error {
 		return err
 	}
 	return nil
+}
+func createSensor(children pkg.SensorApplication) pkg.Sensor {
+	return sensors.NewSensor("sensor", children)
 }
 
 /* Getters */
