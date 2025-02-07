@@ -7,15 +7,13 @@ import (
 )
 
 type ClientManager struct {
-	lastReceive *owtp.Schema
+	lastReceive owtp.Schema
 }
 
 /* getter */
 
 func NewClientManager() *ClientManager {
-	cm := &ClientManager{
-		lastReceive: nil, // Inicialmente, sem dados recebidos
-	}
+	cm := &ClientManager{} // Inicialmente, sem dados recebidos
 
 	// Chamada da função que inicializa a view
 	cm.InitializeView()
@@ -48,7 +46,7 @@ func (cm *ClientManager) InitializeView() {
 
 }
 
-func (cm *ClientManager) GetReceive() *owtp.Schema {
+func (cm *ClientManager) GetReceive() owtp.Schema {
 	return cm.lastReceive
 }
 

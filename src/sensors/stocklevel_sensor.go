@@ -18,7 +18,7 @@ func (s *StockLevelSensor) GetStockLevel() float32 {
 
 /* methods */
 
-func (s *StockLevelSensor) CatchEvent() *owtp.Schema {
+func (s *StockLevelSensor) CatchEvent() owtp.Schema {
 	fmt.Println(" >> Event captured by StockLevel Sensor")
-	return &owtp.Schema{}
+	return owtp.Schema{}
 }

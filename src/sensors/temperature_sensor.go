@@ -18,7 +18,7 @@ func (s *TemperatureSensor) GetTemperature() float64 {
 
 /* methods */
 
-func (t *TemperatureSensor) CatchEvent() *owtp.Schema {
+func (t *TemperatureSensor) CatchEvent() owtp.Schema {
 	fmt.Println(" >> Event captured by Temperature Sensor")
-	return &owtp.Schema{}
+	return owtp.Schema{}
 }

@@ -11,7 +11,7 @@ func NewSensor(kind string, inject pkg.SensorApplication) pkg.Sensor {
 	return &SensorBase{
 		id:  types.NewUUID(),
 		kind: kind,
-		lastMessages: []*owtp.Schema{}, 
+		lastMessages: []owtp.Schema{}, 
 		server: nil,
 		children: inject,
 	}

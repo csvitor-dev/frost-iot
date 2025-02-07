@@ -17,6 +17,6 @@ func NewAlarmActuator() *AlarmActuator {
 
 /* methods */
 
-func (a *AlarmActuator) HandleMessage(message *owtp.Schema) {
+func (a *AlarmActuator) HandleMessage(message owtp.Schema) {
 	fmt.Println("[AlarmActuator] retrieved message")
 }

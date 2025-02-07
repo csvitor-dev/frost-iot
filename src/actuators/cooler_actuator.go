@@ -20,6 +20,6 @@ func NewCoolerActuator(target float64) *CoolerActuator {
 
 /* methods */
 
-func (a *CoolerActuator) HandleMessage(message *owtp.Schema) {
+func (a *CoolerActuator) HandleMessage(message owtp.Schema) {
 	fmt.Println("[CoolerActuator] retrieved message")
 }

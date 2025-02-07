@@ -2,19 +2,40 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
+	"time"
 
 	"github.com/csvitor-dev/frost-iot/src/device"
 )
 
 func main() {
-	d, err := device.NewRefrigeratorDevice(8.0, 0.1)
+	device, err := device.NewRefrigeratorDevice(8.0, 0.1)
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(d)
+	
+	for {
+		device.ThrowPortEvent()
+		device.ThrowStockEvent()
+		device.ThrowTemperatureEvent()
+		
+		if SetAvaliable() {
+			device.SetTemperature(rand.Float64() * 8.0)
+		}
+		if SetAvaliable() && device.GetPortState() {
+			device.SetStock(rand.Float32())
+		}
+		if SetAvaliable() {
+			device.SetPortState()
+		}
+		
+		time.Sleep(time.Second * 2)
+	}
 
-	d.SetPortState()
-	fmt.Println(d)
+}
+
+func SetAvaliable() bool {
+	return rand.Float32() > 0.5
 }

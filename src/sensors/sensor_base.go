@@ -12,15 +12,21 @@ import (
 type SensorBase struct {
 	id           types.UUID
 	kind         string
-	lastMessages []*owtp.Schema
+	lastMessages []owtp.Schema
 	server       *manager.ServerManager
 	children     pkg.SensorApplication
 }
 
-func (s *SensorBase) CatchEvent() *owtp.Schema {
+func (s *SensorBase) CatchEvent() owtp.Schema {
 	fmt.Println("[SensorBase] Event captured by Sensor")
 
 	return s.children.CatchEvent()
+}
+
+func (s *SensorBase) LoadMessage(message owtp.Schema) {
+	s.lastMessages = append(s.lastMessages, message)
+
+	fmt.Println(s.lastMessages)
 }
 
 func (s *SensorBase) SendMessages() {
