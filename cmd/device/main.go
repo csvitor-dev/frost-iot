@@ -15,12 +15,20 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	
+
+	go func() {
+		for {
+			time.Sleep(time.Second * 10)
+			device.Trigger()
+		}
+	}()
+
 	for {
+
 		device.ThrowPortEvent()
 		device.ThrowStockEvent()
 		device.ThrowTemperatureEvent()
-		
+
 		if SetAvaliable() {
 			device.SetTemperature(rand.Float64() * 8.0)
 		}
@@ -30,7 +38,7 @@ func main() {
 		if SetAvaliable() {
 			device.SetPortState()
 		}
-		
+
 		time.Sleep(time.Second * 2)
 	}
 

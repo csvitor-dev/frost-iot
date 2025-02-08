@@ -8,12 +8,18 @@ import (
 	"github.com/csvitor-dev/frost-iot/internal/types"
 )
 
+func (r *Refrigerator) Trigger() {
+	r.tempSensor.SendMessages()
+	r.stockSensor.SendMessages()
+	r.portSensor.SendMessages()
+}
+
 // throwTemperatureEvent simulates an event related to temperature changes.
 func (r *Refrigerator) ThrowTemperatureEvent() {
 	message := owtp.NewSchema(owtp.Header{
 		Type: "sensor_data",
 		Id:   types.NewUUID(),
-		Role: "sensor",
+		Role: r.tempSensor.Role(),
 	}, req.SensorRequest{
 		Temperature: r.temperature,
 	})
@@ -28,7 +34,7 @@ func (r *Refrigerator) ThrowPortEvent() {
 	message := owtp.NewSchema(owtp.Header{
 		Type: "sensor_data",
 		Id:   types.NewUUID(),
-		Role: "sensor",
+		Role: r.portSensor.Role(),
 	}, req.SensorRequest{
 		PortState: r.portState,
 	})
@@ -43,7 +49,7 @@ func (r *Refrigerator) ThrowStockEvent() {
 	message := owtp.NewSchema(owtp.Header{
 		Type: "sensor_data",
 		Id:   types.NewUUID(),
-		Role: "sensor",
+		Role: r.stockSensor.Role(),
 	}, req.SensorRequest{
 		StockLevel: r.stock,
 	})
