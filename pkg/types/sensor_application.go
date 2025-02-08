@@ -2,6 +2,6 @@ package types
 
 import "github.com/csvitor-dev/frost-iot/internal/owtp"
 
-type SensorApplication interface {
-	CatchEvent() owtp.Schema
+type SensorApplication[T owtp.BodyMessage] interface {
+	CatchEvent() owtp.Schema[T]
 }

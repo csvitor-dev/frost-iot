@@ -1,6 +1,8 @@
 package device
 
 import (
+	req "github.com/csvitor-dev/frost-iot/internal/messages/requests"
+	"github.com/csvitor-dev/frost-iot/internal/owtp"
 	pkg "github.com/csvitor-dev/frost-iot/pkg/types"
 	"github.com/csvitor-dev/frost-iot/src/sensors"
 )
@@ -9,9 +11,9 @@ type Refrigerator struct {
 	temperature float64
 	stock       float32
 	portState   bool
-	stockSensor pkg.Sensor
-	tempSensor  pkg.Sensor
-	portSensor  pkg.Sensor
+	stockSensor pkg.Sensor[req.StockLevelRequest]
+	tempSensor  pkg.Sensor[req.TemperatureRequest]
+	portSensor  pkg.Sensor[req.PortStateRequest]
 }
 
 /* constructor */
@@ -25,9 +27,9 @@ func NewRefrigeratorDevice(temperature float64, stock float32) (*Refrigerator, e
 		temperature: temperature,
 		stock:       stock,
 		portState:   false,
-		tempSensor: createSensor(&sensors.TemperatureSensor{}),
-		stockSensor: createSensor(&sensors.StockLevelSensor{}),
-		portSensor: createSensor(&sensors.PortStateSensor{}),
+		tempSensor:  createSensor[req.TemperatureRequest](&sensors.TemperatureSensor{}),
+		stockSensor: createSensor[req.StockLevelRequest](&sensors.StockLevelSensor{}),
+		portSensor:  createSensor[req.PortStateRequest](&sensors.PortStateSensor{}),
 	}, nil
 }
 func validate(temperature float64, stock float32) error {
@@ -43,8 +45,8 @@ func validate(temperature float64, stock float32) error {
 	}
 	return nil
 }
-func createSensor(children pkg.SensorApplication) pkg.Sensor {
-	return sensors.NewSensor("sensor", children)
+func createSensor[T owtp.BodyMessage](inject pkg.SensorApplication[T]) pkg.Sensor[T] {
+	return sensors.NewSensor[T]("sensor", inject)
 }
 
 /* Getters */

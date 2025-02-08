@@ -14,12 +14,12 @@ type CoolerActuator struct {
 
 func NewCoolerActuator(target float64) *CoolerActuator {
 	return &CoolerActuator{
-		temperatureTarget: target,	
+		temperatureTarget: target,
 	}
 }
 
 /* methods */
 
-func (a *CoolerActuator) HandleMessage(message owtp.Schema) {
+func (a *CoolerActuator) HandleMessage(message owtp.Schema[owtp.BodyMessage]) {
 	fmt.Println("[CoolerActuator] retrieved message")
 }

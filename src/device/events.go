@@ -2,25 +2,21 @@ package device
 
 import (
 	"fmt"
-	"time"
 
+	req "github.com/csvitor-dev/frost-iot/internal/messages/requests"
 	"github.com/csvitor-dev/frost-iot/internal/owtp"
 	"github.com/csvitor-dev/frost-iot/internal/types"
 )
 
 // throwTemperatureEvent simulates an event related to temperature changes.
 func (r *Refrigerator) ThrowTemperatureEvent() {
-	message := owtp.Schema{
-		Header: owtp.Header{
-			Type: "sensor_data",
-			Id: types.NewUUID(),
-			Role: "sensor",
-		},
-		BodyMessage: owtp.TemperatureSensorBody{
-			Temperature: r.temperature,
-		},
-		Timestamp: time.Now(),
-	}
+	message := owtp.NewSchema(owtp.Header{
+		Type: "sensor_data",
+		Id:   types.NewUUID(),
+		Role: "sensor",
+	}, req.TemperatureRequest{
+		Temperature: r.temperature,
+	})
 
 	fmt.Println("[ThrowTemperatureEvent] Event trigged!")
 
@@ -29,17 +25,13 @@ func (r *Refrigerator) ThrowTemperatureEvent() {
 
 // throwPortEvent simulates an event related to port state changes.
 func (r *Refrigerator) ThrowPortEvent() {
-	message := owtp.Schema{
-		Header: owtp.Header{
-			Type: "sensor_data",
-			Id: types.NewUUID(),
-			Role: "sensor",
-		},
-		BodyMessage: owtp.PortStateSensorBody{
-			PortState: r.portState,
-		},
-		Timestamp: time.Now(),
-	}
+	message := owtp.NewSchema(owtp.Header{
+		Type: "sensor_data",
+		Id:   types.NewUUID(),
+		Role: "sensor",
+	}, req.PortStateRequest{
+		PortState: r.portState,
+	})
 
 	fmt.Println("[ThrowPortEvent] Event trigged!")
 
@@ -48,17 +40,13 @@ func (r *Refrigerator) ThrowPortEvent() {
 
 // throwStockEvent simulates an event related to stock level changes.
 func (r *Refrigerator) ThrowStockEvent() {
-	message := owtp.Schema{
-		Header: owtp.Header{
-			Type: "sensor_data",
-			Id: types.NewUUID(),
-			Role: "sensor",
-		},
-		BodyMessage: owtp.StockLevelSensorBody{
-			StockLevel: r.stock,
-		},
-		Timestamp: time.Now(),
-	}
+	message := owtp.NewSchema(owtp.Header{
+		Type: "sensor_data",
+		Id:   types.NewUUID(),
+		Role: "sensor",
+	}, req.StockLevelRequest{
+		StockLevel: r.stock,
+	})
 
 	fmt.Println("[ThrowStockEvent] Event trigged!")
 
