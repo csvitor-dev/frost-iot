@@ -8,7 +8,7 @@ import (
 
 type Header struct {
 	Type string
-	Id types.UUID
+	Id   types.UUID
 	Role string
 }
 
@@ -19,6 +19,6 @@ type BodyMessage interface {
 // Schema defines the structure for the OWTP protocol.
 type Schema[T BodyMessage] struct {
 	Header
-	Body T
+	Body      T
 	Timestamp time.Time
 }

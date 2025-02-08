@@ -2,7 +2,6 @@ package client
 
 import (
 	"fmt"
-	"time"
 
 	req "github.com/csvitor-dev/frost-iot/internal/messages/requests"
 	res "github.com/csvitor-dev/frost-iot/internal/messages/responses"
@@ -20,7 +19,9 @@ type ClientManager struct {
 /* getter */
 
 func NewClientManager() *ClientManager {
-	return &ClientManager{}
+	return &ClientManager{
+		uuid: types.NewUUID(),
+	}
 }
 
 func (cm *ClientManager) InitializeView() {
@@ -55,17 +56,13 @@ func (cm *ClientManager) GetReceive() owtp.Schema[res.ClientResponse] {
 
 // receive the last temperature record
 func (cm *ClientManager) ReceiveLastTemperatureRecord() float64 {
-	request := owtp.Schema[req.ClientRequest]{
-		Header: owtp.Header{
-			Type: "query",
-			Id:   cm.uuid,
-		},
-		Body: req.ClientRequest{
-			Action: "GET_TEMPERATURE",
-		},
-		Timestamp: time.Now(),
-	}
-	response, err := socket.ClientTransporter(request)
+	request := owtp.NewSchema(owtp.Header{
+		Type: "query",
+		Id:   cm.uuid,
+	}, req.ClientRequest{
+		Action: "GET_TEMPERATURE",
+	})
+	response, err := socket.ClientTransporter[req.ClientRequest, res.ClientResponse](request)
 
 	if err != nil {
 		fmt.Printf("[ERROR] %v\n", err)
@@ -77,17 +74,13 @@ func (cm *ClientManager) ReceiveLastTemperatureRecord() float64 {
 
 // receive the last stock level record
 func (cm *ClientManager) ReceiveLastStockLevelRecord() float32 {
-	request := owtp.Schema[req.ClientRequest]{
-		Header: owtp.Header{
-			Type: "query",
-			Id:   cm.uuid,
-		},
-		Body: req.ClientRequest{
-			Action: "GET_STOCK",
-		},
-		Timestamp: time.Now(),
-	}
-	response, err := socket.ClientTransporter(request)
+	request := owtp.NewSchema(owtp.Header{
+		Type: "query",
+		Id:   cm.uuid,
+	}, req.ClientRequest{
+		Action: "GET_STOCK",
+	})
+	response, err := socket.ClientTransporter[req.ClientRequest, res.ClientResponse](request)
 
 	if err != nil {
 		fmt.Printf("[ERROR] %v\n", err)
@@ -99,17 +92,13 @@ func (cm *ClientManager) ReceiveLastStockLevelRecord() float32 {
 
 // receive the last open port record
 func (cm *ClientManager) ReceiveLastOpenPortRecord() bool {
-	request := owtp.Schema[req.ClientRequest]{
-		Header: owtp.Header{
-			Type: "query",
-			Id:   cm.uuid,
-		},
-		Body: req.ClientRequest{
-			Action: "GET_PORT",
-		},
-		Timestamp: time.Now(),
-	}
-	response, err := socket.ClientTransporter(request)
+	request := owtp.NewSchema(owtp.Header{
+		Type: "query",
+		Id:   cm.uuid,
+	}, req.ClientRequest{
+		Action: "GET_PORT",
+	})
+	response, err := socket.ClientTransporter[req.ClientRequest, res.ClientResponse](request)
 
 	if err != nil {
 		fmt.Printf("[ERROR] %v\n", err)
@@ -121,23 +110,21 @@ func (cm *ClientManager) ReceiveLastOpenPortRecord() bool {
 
 // Method to configure the temperature limit
 func (cm *ClientManager) ConfigureTemperatureLimit(limit float64) {
-	request := owtp.Schema[req.ClientConfigRequest]{
-		Header: owtp.Header{
-			Type: "query",
-			Id:   cm.uuid,
-		},
-		Body: req.ClientConfigRequest{
-			ClientRequest: req.ClientRequest{
-				Action: "CONFIG_TEMP",
-			},
-			Config: limit,
-		},
-		Timestamp: time.Now(),
-	}
-	err := socket.ConfigTransporter(request)
+	request := owtp.NewSchema(owtp.Header{
+		Type: "query",
+		Id:   cm.uuid,
+	}, req.ClientRequest{
+		Action: "CONFIG_TEMP",
+		Config: limit,
+	})
+	response, err := socket.ClientTransporter[req.ClientRequest, res.ClientResponse](request)
 
 	if err != nil {
 		fmt.Printf("[ERROR] %v\n", err)
+		return
+	}
+	if response.Body.State != nil {
+		fmt.Printf("[ERROR] %v\n", response.Body.State)
 		return
 	}
 	fmt.Println("[SUCCESS] configured temperature limit")
@@ -145,24 +132,22 @@ func (cm *ClientManager) ConfigureTemperatureLimit(limit float64) {
 
 // Method to configure the open port time
 func (cm *ClientManager) ConfigureOpenPortTime(limit float64) {
-	request := owtp.Schema[req.ClientConfigRequest]{
-		Header: owtp.Header{
-			Type: "query",
-			Id:   cm.uuid,
-		},
-		Body: req.ClientConfigRequest{
-			ClientRequest: req.ClientRequest{
-				Action: "CONFIG_TIME",
-			},
-			Config: limit,
-		},
-		Timestamp: time.Now(),
-	}
-	err := socket.ConfigTransporter(request)
+	request := owtp.NewSchema(owtp.Header{
+		Type: "query",
+		Id:   cm.uuid,
+	}, req.ClientRequest{
+		Action: "CONFIG_TIME",
+		Config: limit,
+	})
+	response, err := socket.ClientTransporter[req.ClientRequest, res.ClientResponse](request)
 
 	if err != nil {
 		fmt.Printf("[ERROR] %v\n", err)
 		return
 	}
-	fmt.Println("[SUCCESS] configured temperature limit")
+	if response.Body.State != nil {
+		fmt.Printf("[ERROR] %v\n", response.Body.State)
+		return
+	}
+	fmt.Println("[SUCCESS] configured port time limit")
 }

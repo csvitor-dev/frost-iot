@@ -5,5 +5,7 @@ import (
 )
 
 func main() {
-	client.NewClientManager()
+	client := client.NewClientManager()
+
+	client.InitializeView()
 }
