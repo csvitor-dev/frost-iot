@@ -10,9 +10,9 @@ import (
 )
 
 type ActuatorBase struct {
-	id     types.UUID
-	state  bool
-	server *manager.ServerManager
+	id       types.UUID
+	state    bool
+	server   *manager.ServerManager
 	children pkg.ActuatorApplication
 }
 
@@ -34,12 +34,12 @@ func (a *ActuatorBase) SetState() {
 
 /* methods */
 
-func (a *ActuatorBase) HandleEvent(message owtp.Schema) {
+func (a *ActuatorBase) HandleEvent(message owtp.Schema[owtp.BodyMessage]) {
 	a.children.HandleMessage(message)
 }
 
 func (a *ActuatorBase) Connect(server *manager.ServerManager) error {
-	if (server == nil) {
+	if server == nil {
 		return errors.New("Fail")
 	}
 	a.server = server

@@ -1,28 +1,28 @@
 package manager
 
 import (
-	"github.com/csvitor-dev/frost-iot/internal/types"
 	"github.com/csvitor-dev/frost-iot/internal/owtp"
+	"github.com/csvitor-dev/frost-iot/internal/types"
 	pkg "github.com/csvitor-dev/frost-iot/pkg/types"
 )
 
 type ServerManager struct {
 	temperatureTarget float64
 	timeTarget        float32
-	recentRecords     map[types.UUID]owtp.Schema
-	sensors []pkg.Sensor
-	actuators []pkg.Actuator
+	recentRecords     map[types.UUID]owtp.Schema[owtp.BodyMessage]
+	sensors           []pkg.Sensor[owtp.BodyMessage]
+	actuators         []pkg.Actuator
 }
 
 /* constructor */
 
-func NewServerManger(temperature float64, time float32) *ServerManager {
+func NewServerManager(temperature float64, time float32) *ServerManager {
 	return &ServerManager{
 		temperatureTarget: temperature,
-		timeTarget: time,
-		recentRecords: map[types.UUID]owtp.Schema {},
-		sensors: nil,
-		actuators: nil,
+		timeTarget:        time,
+		recentRecords:     map[types.UUID]owtp.Schema[owtp.BodyMessage]{},
+		sensors:           nil,
+		actuators:         nil,
 	}
 }
 
@@ -46,7 +46,7 @@ func (s *ServerManager) TryConnectActuator(uuid types.UUID) bool {
 	return false
 }
 
-func (s *ServerManager) ReceiveRecord(uuid types.UUID, message owtp.Schema) {
+func (s *ServerManager) ReceiveRecord(uuid types.UUID, message owtp.Schema[owtp.BodyMessage]) {
 
 }
 
@@ -62,10 +62,10 @@ func (s *ServerManager) IsAlarmOn() bool {
 	return false
 }
 
-func (s *ServerManager) ProvideRefrigeratorState() *owtp.Schema {
-	return nil
+func (s *ServerManager) ProvideRefrigeratorState() owtp.Schema[owtp.BodyMessage] {
+	return owtp.Schema[owtp.BodyMessage]{}
 }
 
-func (s *ServerManager) ProvideSystemState() *owtp.Schema {
-	return nil
+func (s *ServerManager) ProvideSystemState() owtp.Schema[owtp.BodyMessage] {
+	return owtp.Schema[owtp.BodyMessage]{}
 }

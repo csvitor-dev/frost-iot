@@ -3,6 +3,7 @@ package sensors
 import (
 	"fmt"
 
+	req "github.com/csvitor-dev/frost-iot/internal/messages/requests"
 	"github.com/csvitor-dev/frost-iot/internal/owtp"
 )
 
@@ -18,7 +19,7 @@ func (s *PortStateSensor) GetPortState() bool {
 
 /* methods */
 
-func (t *PortStateSensor) CatchEvent() owtp.Schema {
+func (t *PortStateSensor) CatchEvent() owtp.Schema[req.SensorRequest] {
 	fmt.Println(" >> Event captured by PortState Sensor")
-	return owtp.Schema{}
+	return owtp.Schema[req.SensorRequest]{}
 }

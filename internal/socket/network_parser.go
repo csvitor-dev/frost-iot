@@ -17,14 +17,14 @@ var (
 func init() {
 	gob.Register(time.Time{})
 	gob.Register(owtp.Header{})
-	gob.Register(owtp.Schema{})
+	gob.Register(owtp.Schema[owtp.BodyMessage]{})
 }
 
-func ParseSchemaToByte(message *owtp.Schema) ([]byte, error) {
+func ParseSchemaToByte[T owtp.BodyMessage](message owtp.Schema[T]) ([]byte, error) {
 	var network bytes.Buffer
 	encoder := gob.NewEncoder(&network)
 
-	err := encoder.Encode(message)
+	err := encoder.Encode(&message)
 
 	if err != nil {
 		return []byte{}, errSchemaToByte
@@ -32,14 +32,15 @@ func ParseSchemaToByte(message *owtp.Schema) ([]byte, error) {
 	return network.Bytes(), nil
 }
 
-func ParseByteToSchema(data []byte, retrieve *owtp.Schema) error {
+func ParseByteToSchema[T owtp.BodyMessage](data []byte) (owtp.Schema[T], error) {
 	network := bytes.NewReader(data)
 	decoder := gob.NewDecoder(network)
 
-	err := decoder.Decode(retrieve)
+	var retrieve owtp.Schema[T]
+	err := decoder.Decode(&retrieve)
 
 	if err != nil {
-		return errByteToSchema
+		return retrieve, errByteToSchema
 	}
-	return nil
+	return retrieve, nil
 }

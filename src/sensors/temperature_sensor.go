@@ -3,6 +3,7 @@ package sensors
 import (
 	"fmt"
 
+	req "github.com/csvitor-dev/frost-iot/internal/messages/requests"
 	"github.com/csvitor-dev/frost-iot/internal/owtp"
 )
 
@@ -18,7 +19,7 @@ func (s *TemperatureSensor) GetTemperature() float64 {
 
 /* methods */
 
-func (t *TemperatureSensor) CatchEvent() owtp.Schema {
+func (t *TemperatureSensor) CatchEvent() owtp.Schema[req.SensorRequest] {
 	fmt.Println(" >> Event captured by Temperature Sensor")
-	return owtp.Schema{}
+	return owtp.Schema[req.SensorRequest]{}
 }

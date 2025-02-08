@@ -4,7 +4,7 @@ import "errors"
 
 var (
 	errTemperatureOutRange = errors.New("temperature value outside of the acceptable range")
-	errStockOutRange = errors.New("stock percentage outside of the acceptable range")
+	errStockOutRange       = errors.New("stock percentage outside of the acceptable range")
 )
 
 func validateTemperature(value float64) error {
