@@ -11,9 +11,9 @@ type Refrigerator struct {
 	temperature float64
 	stock       float32
 	portState   bool
-	stockSensor pkg.Sensor[req.StockLevelRequest]
-	tempSensor  pkg.Sensor[req.TemperatureRequest]
-	portSensor  pkg.Sensor[req.PortStateRequest]
+	stockSensor pkg.Sensor[req.SensorRequest]
+	tempSensor  pkg.Sensor[req.SensorRequest]
+	portSensor  pkg.Sensor[req.SensorRequest]
 }
 
 /* constructor */
@@ -27,9 +27,9 @@ func NewRefrigeratorDevice(temperature float64, stock float32) (*Refrigerator, e
 		temperature: temperature,
 		stock:       stock,
 		portState:   false,
-		tempSensor:  createSensor[req.TemperatureRequest](&sensors.TemperatureSensor{}),
-		stockSensor: createSensor[req.StockLevelRequest](&sensors.StockLevelSensor{}),
-		portSensor:  createSensor[req.PortStateRequest](&sensors.PortStateSensor{}),
+		tempSensor:  createSensor(&sensors.TemperatureSensor{}),
+		stockSensor: createSensor(&sensors.StockLevelSensor{}),
+		portSensor:  createSensor(&sensors.PortStateSensor{}),
 	}, nil
 }
 func validate(temperature float64, stock float32) error {

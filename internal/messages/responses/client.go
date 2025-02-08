@@ -10,7 +10,6 @@ import (
 
 func init() {
 	owtp.Inject(ClientResponse{})
-	owtp.Inject(ClientConfigResponse{})
 }
 
 type ClientResponse struct {
@@ -19,6 +18,7 @@ type ClientResponse struct {
 	StockLevel  float32
 	PortState   bool
 	LastUpdate  time.Time
+	State       error
 }
 
 func (r ClientResponse) Validate() error {
@@ -31,13 +31,5 @@ func (r ClientResponse) Validate() error {
 	if r.StockLevel < 0.0 || r.StockLevel > 1.0 {
 		return errors.New("invalid stock level")
 	}
-	return nil
-}
-
-type ClientConfigResponse struct {
-	State error
-}
-
-func (r ClientConfigResponse) Validate() error {
 	return nil
 }

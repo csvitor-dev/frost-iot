@@ -14,7 +14,7 @@ func (r *Refrigerator) ThrowTemperatureEvent() {
 		Type: "sensor_data",
 		Id:   types.NewUUID(),
 		Role: "sensor",
-	}, req.TemperatureRequest{
+	}, req.SensorRequest{
 		Temperature: r.temperature,
 	})
 
@@ -29,7 +29,7 @@ func (r *Refrigerator) ThrowPortEvent() {
 		Type: "sensor_data",
 		Id:   types.NewUUID(),
 		Role: "sensor",
-	}, req.PortStateRequest{
+	}, req.SensorRequest{
 		PortState: r.portState,
 	})
 
@@ -44,7 +44,7 @@ func (r *Refrigerator) ThrowStockEvent() {
 		Type: "sensor_data",
 		Id:   types.NewUUID(),
 		Role: "sensor",
-	}, req.StockLevelRequest{
+	}, req.SensorRequest{
 		StockLevel: r.stock,
 	})
 

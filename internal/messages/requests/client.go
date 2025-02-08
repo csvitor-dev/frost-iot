@@ -9,35 +9,21 @@ import (
 
 func init() {
 	owtp.Inject(ClientRequest{})
-	owtp.Inject(ClientConfigRequest{})
 }
 
 type ClientRequest struct {
 	Action string
+	Config float64
 }
 
 func (r ClientRequest) Validate() error {
 	if constants.Actions[r.Action] == 0 {
 		return errors.New("action there no exist")
 	}
-	return nil
-}
-
-type ClientConfigRequest struct {
-	ClientRequest
-	Config float64
-}
-
-func (r ClientConfigRequest) Validate() error {
-	err := r.ClientRequest.Validate()
-
-	if err != nil {
-		return err
-	}
 	config := constants.Actions[r.Action]
 
 	switch config {
-	case 4: 
+	case 4:
 		if r.Config < 0.0 || r.Config > 4.0 {
 			return errors.New("invalid temperature limit")
 		}

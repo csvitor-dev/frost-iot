@@ -19,7 +19,7 @@ func (s *PortStateSensor) GetPortState() bool {
 
 /* methods */
 
-func (t *PortStateSensor) CatchEvent() owtp.Schema[req.PortStateRequest] {
+func (t *PortStateSensor) CatchEvent() owtp.Schema[req.SensorRequest] {
 	fmt.Println(" >> Event captured by PortState Sensor")
-	return owtp.Schema[req.PortStateRequest]{}
+	return owtp.Schema[req.SensorRequest]{}
 }
