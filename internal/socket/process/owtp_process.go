@@ -7,13 +7,13 @@ import (
 )
 
 type OwtpProcess struct {
-	types.Intercepter
+	types.Interceptor
 }
 
 func (p *OwtpProcess) Push(request []byte) []byte {
 	var response []byte
 
-	if p.Intercepter == nil {
+	if p.Interceptor == nil {
 		return response
 	}
 	response, err := p.Invoke(request)

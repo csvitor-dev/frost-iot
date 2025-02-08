@@ -1,5 +1,5 @@
 package types
 
-type Intercepter interface {
+type Interceptor interface {
 	Invoke([]byte) ([]byte, error)
 }
