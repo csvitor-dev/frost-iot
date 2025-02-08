@@ -25,7 +25,7 @@ func ShowTemperatureRecord(temp float64) {
 	fmt.Printf("\n🌡️  Last Temperature Record: %.2f°C\n", temp)
 }
 
-func ShowStockLevelRecord(stock float64) {
+func ShowStockLevelRecord(stock float32) {
 	fmt.Printf("\n📦 Last Stock Level Record: %.2f units\n", stock)
 }
 
