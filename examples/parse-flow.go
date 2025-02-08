@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"time"
 
@@ -10,24 +11,29 @@ import (
 )
 
 func init() {
-	socket.InjectBodyMessage(SensorBody{})
+	owtp.Inject(SensorBody{})
 }
 
 type SensorBody struct {
 	Temperature float64
-	Humidity    float32
+}
+
+func (s SensorBody) Validate() error {
+	if s.Temperature < 0.0 || s.Temperature > 4.0 {
+		return errors.New("[ERROR] invalid temperature")
+	}
+	return nil
 }
 
 func main() {
-	schema := &owtp.Schema{
+	schema := owtp.Schema[SensorBody]{
 		Header: owtp.Header{
 			Type: "sensor_data",
-			Id: types.NewUUID(),
+			Id:   types.NewUUID(),
 			Role: "sensor",
 		},
-		BodyMessage: SensorBody{
+		Body: SensorBody{
 			Temperature: 4.0,
-			Humidity: 65,
 		},
 		Timestamp: time.Now(),
 	}
@@ -35,17 +41,15 @@ func main() {
 
 	bytes, err := socket.ParseSchemaToByte(schema)
 
-	if err!= nil {
+	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	fmt.Printf("Sending...\n%v\n", bytes)
-	
-	var output owtp.Schema
 
-	err = socket.ParseByteToSchema(bytes, &output)
+	output, err := socket.ParseByteToSchema[SensorBody](bytes)
 
-	if err!= nil {
+	if err != nil {
 		fmt.Println(err)
 		return
 	}

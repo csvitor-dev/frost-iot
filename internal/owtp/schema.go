@@ -13,11 +13,12 @@ type Header struct {
 }
 
 type BodyMessage interface {
+	Validate() error
 }
 
 // Schema defines the structure for the OWTP protocol.
-type Schema struct {
+type Schema[T BodyMessage] struct {
 	Header
-	BodyMessage
+	Body T
 	Timestamp time.Time
 }
