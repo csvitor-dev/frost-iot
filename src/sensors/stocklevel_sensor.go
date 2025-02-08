@@ -23,3 +23,7 @@ func (s *StockLevelSensor) CatchEvent() owtp.Schema[req.SensorRequest] {
 	fmt.Println(" >> Event captured by StockLevel Sensor")
 	return owtp.Schema[req.SensorRequest]{}
 }
+
+func (s *StockLevelSensor) Role() string {
+	return "stock_sensor"
+}

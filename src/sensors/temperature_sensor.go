@@ -19,7 +19,11 @@ func (s *TemperatureSensor) GetTemperature() float64 {
 
 /* methods */
 
-func (t *TemperatureSensor) CatchEvent() owtp.Schema[req.SensorRequest] {
+func (s *TemperatureSensor) CatchEvent() owtp.Schema[req.SensorRequest] {
 	fmt.Println(" >> Event captured by Temperature Sensor")
 	return owtp.Schema[req.SensorRequest]{}
+}
+
+func (s *TemperatureSensor) Role() string {
+	return "temp_sensor"
 }
