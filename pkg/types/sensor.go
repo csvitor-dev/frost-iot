@@ -6,4 +6,5 @@ type Sensor[T owtp.BodyMessage] interface {
 	CatchEvent() owtp.Schema[T]
 	SendMessages()
 	LoadMessage(owtp.Schema[T])
+	Role() string
 }
