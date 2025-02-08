@@ -1,10 +1,11 @@
-package socket
+package transporters
 
 import (
 	"errors"
 
 	req "github.com/csvitor-dev/frost-iot/internal/messages/requests"
 	"github.com/csvitor-dev/frost-iot/internal/owtp"
+	"github.com/csvitor-dev/frost-iot/internal/socket"
 	"github.com/csvitor-dev/socket.go/src/tcp"
 )
 
@@ -17,7 +18,7 @@ func ClientTransporter[T, U owtp.BodyMessage](request owtp.Schema[T]) (owtp.Sche
 	}
 	defer conn.Close()
 
-	payload, err := ParseSchemaToByte(request)
+	payload, err := socket.ParseSchemaToByte(request)
 
 	if err != nil {
 		return response, err
@@ -40,7 +41,7 @@ func ClientTransporter[T, U owtp.BodyMessage](request owtp.Schema[T]) (owtp.Sche
 	if err != nil {
 		return response, err
 	}
-	response, err = ParseByteToSchema[U](bytes)
+	response, err = socket.ParseByteToSchema[U](bytes)
 
 	if err != nil {
 		return response, err

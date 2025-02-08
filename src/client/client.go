@@ -6,7 +6,7 @@ import (
 	req "github.com/csvitor-dev/frost-iot/internal/messages/requests"
 	res "github.com/csvitor-dev/frost-iot/internal/messages/responses"
 	"github.com/csvitor-dev/frost-iot/internal/owtp"
-	"github.com/csvitor-dev/frost-iot/internal/socket"
+	trprt "github.com/csvitor-dev/frost-iot/internal/socket/transporters"
 	"github.com/csvitor-dev/frost-iot/internal/types"
 	"github.com/csvitor-dev/frost-iot/src/view"
 )
@@ -62,7 +62,7 @@ func (cm *ClientManager) ReceiveLastTemperatureRecord() float64 {
 	}, req.ClientRequest{
 		Action: "GET_TEMPERATURE",
 	})
-	response, err := socket.ClientTransporter[req.ClientRequest, res.ClientResponse](request)
+	response, err := trprt.ClientTransporter[req.ClientRequest, res.ClientResponse](request)
 
 	if err != nil {
 		fmt.Printf("[ERROR] %v\n", err)
@@ -80,7 +80,7 @@ func (cm *ClientManager) ReceiveLastStockLevelRecord() float32 {
 	}, req.ClientRequest{
 		Action: "GET_STOCK",
 	})
-	response, err := socket.ClientTransporter[req.ClientRequest, res.ClientResponse](request)
+	response, err := trprt.ClientTransporter[req.ClientRequest, res.ClientResponse](request)
 
 	if err != nil {
 		fmt.Printf("[ERROR] %v\n", err)
@@ -98,7 +98,7 @@ func (cm *ClientManager) ReceiveLastOpenPortRecord() bool {
 	}, req.ClientRequest{
 		Action: "GET_PORT",
 	})
-	response, err := socket.ClientTransporter[req.ClientRequest, res.ClientResponse](request)
+	response, err := trprt.ClientTransporter[req.ClientRequest, res.ClientResponse](request)
 
 	if err != nil {
 		fmt.Printf("[ERROR] %v\n", err)
@@ -117,7 +117,7 @@ func (cm *ClientManager) ConfigureTemperatureLimit(limit float64) {
 		Action: "CONFIG_TEMP",
 		Config: limit,
 	})
-	response, err := socket.ClientTransporter[req.ClientRequest, res.ClientResponse](request)
+	response, err := trprt.ClientTransporter[req.ClientRequest, res.ClientResponse](request)
 
 	if err != nil {
 		fmt.Printf("[ERROR] %v\n", err)
@@ -139,7 +139,7 @@ func (cm *ClientManager) ConfigureOpenPortTime(limit float64) {
 		Action: "CONFIG_TIME",
 		Config: limit,
 	})
-	response, err := socket.ClientTransporter[req.ClientRequest, res.ClientResponse](request)
+	response, err := trprt.ClientTransporter[req.ClientRequest, res.ClientResponse](request)
 
 	if err != nil {
 		fmt.Printf("[ERROR] %v\n", err)
