@@ -36,8 +36,7 @@ func (s *ServerInterceptor) Invoke(request []byte) ([]byte, error) {
 		if err != nil {
 			return result, err
 		}
-		result, err = socket.ParseSchemaToByte(message)
-
+		result, err = s.clientRequestHandler(message.Body)
 		if err != nil {
 			return result, err
 		}
@@ -47,7 +46,7 @@ func (s *ServerInterceptor) Invoke(request []byte) ([]byte, error) {
 		if err != nil {
 			return result, err
 		}
-		s.manager.recentRecords[message.Id] = owtp.NewSchema[owtp.BodyMessage](message.Header, message.Body)
+		s.manager.recentRecords = append(s.manager.recentRecords, owtp.NewSchema[owtp.BodyMessage](message.Header, message.Body))
 
 		return []byte("ACK"), nil
 	default:

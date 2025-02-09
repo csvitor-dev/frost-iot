@@ -8,19 +8,19 @@ import (
 
 type ServerManager struct {
 	temperatureTarget float64
-	timeTarget        float32
-	recentRecords     map[types.UUID]owtp.Schema[owtp.BodyMessage]
+	timeTarget        float64
+	recentRecords     []owtp.Schema[owtp.BodyMessage]
 	sensors           []pkg.Sensor[owtp.BodyMessage]
 	actuators         []pkg.Actuator
 }
 
 /* constructor */
 
-func NewServerManager(temperature float64, time float32) *ServerManager {
+func NewServerManager(temperature float64, time float64) *ServerManager {
 	return &ServerManager{
 		temperatureTarget: temperature,
 		timeTarget:        time,
-		recentRecords:     map[types.UUID]owtp.Schema[owtp.BodyMessage]{},
+		recentRecords:     []owtp.Schema[owtp.BodyMessage]{},
 		sensors:           nil,
 		actuators:         nil,
 	}
@@ -29,11 +29,11 @@ func NewServerManager(temperature float64, time float32) *ServerManager {
 /* setters */
 
 func (s *ServerManager) ConfigureTemperatureLimit(target float64) {
-
+	s.temperatureTarget = target
 }
 
-func (s *ServerManager) ConfigureOpenPortTime(time float32) {
-
+func (s *ServerManager) ConfigureOpenPortTime(time float64) {
+	s.timeTarget = time
 }
 
 /* methods */
