@@ -1,6 +1,11 @@
 package view
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"os/exec"
+)
 
 func ShowMenu() {
 	fmt.Println("\n==============================")
@@ -19,6 +24,20 @@ func GetUserChoice() int {
 	var choice int
 	fmt.Scan(&choice)
 	return choice
+}
+
+func Sleep() {
+	r := bufio.NewReader(os.Stdin)
+	r.ReadBytes('\n')
+
+	fmt.Println("Press 'Enter' to continue...")
+	r.ReadBytes('\n')
+
+	func() {
+		cmd := exec.Command("clear", "cls", "/c")
+		cmd.Stdout = os.Stdout
+		cmd.Run()
+	}()
 }
 
 func ShowTemperatureRecord(temp float64) {

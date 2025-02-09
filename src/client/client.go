@@ -46,8 +46,8 @@ func (cm *ClientManager) InitializeView() {
 		default:
 			view.ShowInvalidChoice()
 		}
+		view.Sleep()
 	}
-
 }
 
 func (cm *ClientManager) GetReceive() owtp.Schema[res.ClientResponse] {
