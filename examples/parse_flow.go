@@ -29,7 +29,7 @@ func main() {
 	schema := owtp.Schema[SensorBody]{
 		Header: owtp.Header{
 			Type: "sensor_data",
-			Id:   types.NewUUID(),
+			Id:   types.NewUuid(),
 			Role: "sensor",
 		},
 		Body: SensorBody{

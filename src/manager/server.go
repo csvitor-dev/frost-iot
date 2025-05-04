@@ -38,15 +38,15 @@ func (s *ServerManager) ConfigureOpenPortTime(time float64) {
 
 /* methods */
 
-func (s *ServerManager) TryConnectSensor(uuid types.UUID) bool {
+func (s *ServerManager) TryConnectSensor(uuid types.Uuid) bool {
 	return false
 }
 
-func (s *ServerManager) TryConnectActuator(uuid types.UUID) bool {
+func (s *ServerManager) TryConnectActuator(uuid types.Uuid) bool {
 	return false
 }
 
-func (s *ServerManager) ReceiveRecord(uuid types.UUID, message owtp.Schema[owtp.BodyMessage]) {
+func (s *ServerManager) ReceiveRecord(uuid types.Uuid, message owtp.Schema[owtp.BodyMessage]) {
 
 }
 

@@ -10,7 +10,7 @@ import (
 )
 
 type SensorBase[T owtp.BodyMessage] struct {
-	uuid         types.UUID
+	uuid         types.Uuid
 	kind         string
 	lastMessages []owtp.Schema[T]
 	children     pkg.SensorApplication[T]

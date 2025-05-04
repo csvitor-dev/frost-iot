@@ -8,7 +8,7 @@ import (
 // returns the reference an actuator base with injectable struct
 func NewActuator(inject pkg.ActuatorApplication) pkg.Actuator {
 	return &ActuatorBase{
-		id:       types.NewUUID(),
+		id:       types.NewUuid(),
 		state:    false,
 		server:   nil,
 		children: inject,

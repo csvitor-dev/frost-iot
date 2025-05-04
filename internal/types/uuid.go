@@ -3,8 +3,8 @@ package types
 import "github.com/google/uuid"
 
 // represents a UUID version
-type UUID string
+type Uuid string
 
-func NewUUID() UUID {
-	return UUID(uuid.NewString())
+func NewUuid() Uuid {
+	return Uuid(uuid.NewString())
 }

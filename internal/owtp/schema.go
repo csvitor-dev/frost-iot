@@ -8,7 +8,7 @@ import (
 
 type Header struct {
 	Type string
-	Id   types.UUID
+	Id   types.Uuid
 	Role string
 }
 

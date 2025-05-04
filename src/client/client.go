@@ -12,7 +12,7 @@ import (
 )
 
 type ClientManager struct {
-	uuid        types.UUID
+	uuid        types.Uuid
 	lastReceive owtp.Schema[res.ClientResponse]
 }
 
@@ -20,7 +20,7 @@ type ClientManager struct {
 
 func NewClientManager() *ClientManager {
 	return &ClientManager{
-		uuid: types.NewUUID(),
+		uuid: types.NewUuid(),
 	}
 }
 

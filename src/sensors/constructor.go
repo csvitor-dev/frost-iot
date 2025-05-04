@@ -9,7 +9,7 @@ import (
 // returns the reference an sensor base with injectable struct
 func NewSensor[T owtp.BodyMessage](kind string, inject pkg.SensorApplication[T]) pkg.Sensor[T] {
 	return &SensorBase[T]{
-		uuid:         types.NewUUID(),
+		uuid:         types.NewUuid(),
 		kind:         kind,
 		lastMessages: []owtp.Schema[T]{},
 		children:     inject,

@@ -18,7 +18,7 @@ func (r *Refrigerator) Trigger() {
 func (r *Refrigerator) ThrowTemperatureEvent() {
 	message := owtp.NewSchema(owtp.Header{
 		Type: "sensor_data",
-		Id:   types.NewUUID(),
+		Id:   types.NewUuid(),
 		Role: r.tempSensor.Role(),
 	}, req.SensorRequest{
 		Temperature: r.temperature,
@@ -33,7 +33,7 @@ func (r *Refrigerator) ThrowTemperatureEvent() {
 func (r *Refrigerator) ThrowPortEvent() {
 	message := owtp.NewSchema(owtp.Header{
 		Type: "sensor_data",
-		Id:   types.NewUUID(),
+		Id:   types.NewUuid(),
 		Role: r.portSensor.Role(),
 	}, req.SensorRequest{
 		PortState: r.portState,
@@ -48,7 +48,7 @@ func (r *Refrigerator) ThrowPortEvent() {
 func (r *Refrigerator) ThrowStockEvent() {
 	message := owtp.NewSchema(owtp.Header{
 		Type: "sensor_data",
-		Id:   types.NewUUID(),
+		Id:   types.NewUuid(),
 		Role: r.stockSensor.Role(),
 	}, req.SensorRequest{
 		StockLevel: r.stock,

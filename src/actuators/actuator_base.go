@@ -10,7 +10,7 @@ import (
 )
 
 type ActuatorBase struct {
-	id       types.UUID
+	id       types.Uuid
 	state    bool
 	server   *manager.ServerManager
 	children pkg.ActuatorApplication
@@ -18,7 +18,7 @@ type ActuatorBase struct {
 
 /* getters */
 
-func (a *ActuatorBase) GetId() types.UUID {
+func (a *ActuatorBase) GetId() types.Uuid {
 	return a.id
 }
 

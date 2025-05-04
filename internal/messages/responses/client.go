@@ -13,7 +13,7 @@ func init() {
 }
 
 type ClientResponse struct {
-	SensorId    types.UUID
+	SensorId    types.Uuid
 	Temperature float64
 	StockLevel  float32
 	PortState   bool
