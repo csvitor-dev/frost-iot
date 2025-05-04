@@ -5,6 +5,8 @@ import (
 	"encoding/gob"
 	"errors"
 
+	"slices"
+
 	"github.com/csvitor-dev/frost-iot/internal/owtp"
 )
 
@@ -18,10 +20,8 @@ type BaseRequest struct {
 }
 
 func (r BaseRequest) Validate() error {
-	for _, role := range []string{"actuator", "client", "sensor"} {
-		if r.Role == role {
-			return nil
-		}
+	if slices.Contains([]string{"actuator", "client", "sensor"}, r.Role) {
+		return nil
 	}
 	return errors.New("fail")
 }

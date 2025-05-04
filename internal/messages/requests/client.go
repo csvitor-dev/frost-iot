@@ -23,11 +23,11 @@ func (r ClientRequest) Validate() error {
 	config := constants.Actions[r.Action]
 
 	switch config {
-	case 4:
+	case constants.Actions["CONFIG_TEMP"]:
 		if r.Config < 0.0 || r.Config > 4.0 {
 			return errors.New("invalid temperature limit")
 		}
-	case 5:
+	case constants.Actions["CONFIG_TIME"]:
 		if r.Config < 0.0 || r.Config > 30.0 {
 			return errors.New("invalid port time limit")
 		}
